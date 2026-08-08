@@ -1,0 +1,150 @@
+[
+ {
+  "name": "Wine",
+  "slug": "wine",
+  "blurb": "Red, white, ros\u00e9, sparkling & more",
+  "subcategories": [
+   "Boxed & Value Wine",
+   "Champagne & Sparkling",
+   "Red Wine",
+   "Rose Wine",
+   "Sake & Soju",
+   "Sherry, Port & Fortified",
+   "White Wine",
+   "Wine"
+  ],
+  "count": 841
+ },
+ {
+  "name": "Whiskey & Bourbon",
+  "slug": "whiskey-bourbon",
+  "blurb": "Bourbon, Scotch, Irish, rye & more",
+  "subcategories": [
+   "American & Rye Whiskey",
+   "Bourbon",
+   "Irish & Canadian Whiskey",
+   "Scotch"
+  ],
+  "count": 204
+ },
+ {
+  "name": "Vodka",
+  "slug": "vodka",
+  "blurb": "Premium & everyday vodkas",
+  "subcategories": [
+   "Vodka"
+  ],
+  "count": 208
+ },
+ {
+  "name": "Tequila & Mezcal",
+  "slug": "tequila-mezcal",
+  "blurb": "100% agave tequila & mezcal",
+  "subcategories": [
+   "Tequila & Mezcal"
+  ],
+  "count": 111
+ },
+ {
+  "name": "Rum",
+  "slug": "rum",
+  "blurb": "Spiced, dark, white & flavored rum",
+  "subcategories": [
+   "Rum"
+  ],
+  "count": 54
+ },
+ {
+  "name": "Gin",
+  "slug": "gin",
+  "blurb": "London dry & botanical gins",
+  "subcategories": [
+   "Gin"
+  ],
+  "count": 26
+ },
+ {
+  "name": "Brandy & Cognac",
+  "slug": "brandy-cognac",
+  "blurb": "Cognac, brandy & VSOP",
+  "subcategories": [
+   "Brandy & Cognac"
+  ],
+  "count": 28
+ },
+ {
+  "name": "Liqueurs & Cordials",
+  "slug": "liqueurs-cordials",
+  "blurb": "Cream, fruit & herbal liqueurs",
+  "subcategories": [
+   "Liqueurs & Cordials"
+  ],
+  "count": 61
+ },
+ {
+  "name": "Beer",
+  "slug": "beer",
+  "blurb": "Domestic, imported & craft beer",
+  "subcategories": [
+   "Beer",
+   "Craft & Specialty Beer",
+   "Domestic Beer",
+   "Imported Beer",
+   "Non-Alcoholic Beer"
+  ],
+  "count": 284
+ },
+ {
+  "name": "Seltzers & Ready-to-Drink",
+  "slug": "seltzers-rtd",
+  "blurb": "Hard seltzers & ready-to-drink cocktails",
+  "subcategories": [
+   "Hard Seltzer",
+   "Hard Tea & Lemonade",
+   "Ready-to-Drink Cocktails"
+  ],
+  "count": 310
+ },
+ {
+  "name": "Mixers & Non-Alcoholic",
+  "slug": "mixers-non-alcoholic",
+  "blurb": "Mixers, soda, water & more",
+  "subcategories": [
+   "Cocktail Mixers & Bitters",
+   "Energy & Sports Drinks",
+   "Soda & Water"
+  ],
+  "count": 78
+ },
+ {
+  "name": "Snacks & Munchies",
+  "slug": "snacks-munchies",
+  "blurb": "Chips, nuts & munchies",
+  "subcategories": [
+   "Chips & Crisps",
+   "Gum & Mints",
+   "Nuts & Trail Mix"
+  ],
+  "count": 29
+ },
+ {
+  "name": "Party & Bar Supplies",
+  "slug": "party-bar-supplies",
+  "blurb": "Everything for your home bar",
+  "subcategories": [
+   "Bar Accessories"
+  ],
+  "count": 7
+ },
+ {
+  "name": "Tobacco",
+  "slug": "tobacco",
+  "blurb": "In-store purchase only, 21+",
+  "subcategories": [
+   "Cigarettes",
+   "Cigars",
+   "Vape & Accessories"
+  ],
+  "count": 25
+ }
+]
