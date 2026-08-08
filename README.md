@@ -69,38 +69,60 @@ delete those rows from `products.json`.
 
 ## Product Images
 
-543 of the 2,266 products (about 24%) show **real product photography**,
-sourced from the supplier image feed you provided
-(`Copy_of_products.xlsx`, a 14,230-row Salsify content export covering wine
-and spirits). The remaining products — mostly beer, seltzers/RTD, mixers,
-snacks, and tobacco, which that particular feed doesn't carry — fall back to
-generated category-colored SVG bottle/can art (`src/components/BottleArt.tsx`)
-rather than a broken image or a stock photo of the wrong product.
+**629 of the 2,266 products (about 28%) show real product photography**,
+combined from two supplier sources. Products without a confident match fall
+back to generated category-colored SVG bottle/can art
+(`src/components/BottleArt.tsx`) rather than a broken image or a photo of
+the wrong product:
 
-Matching pipeline (see chat history / `src/data/products.json`'s `image`
-field for the result):
+| Category | With photo | Total |
+|---|---|---|
+| Wine | 235 | 841 |
+| Whiskey & Bourbon | 97 | 204 |
+| Tequila & Mezcal | 58 | 111 |
+| Vodka | 77 | 204 |
+| Beer | 51 | 284 |
+| Seltzers & Ready-to-Drink | 48 | 314 |
+| Rum | 33 | 54 |
+| Liqueurs & Cordials | 13 | 61 |
+| Gin | 9 | 26 |
+| Brandy & Cognac | 4 | 28 |
+| Mixers & Non-Alcoholic | 3 | 78 |
+| Party & Bar Supplies | 1 | 7 |
+| Snacks, Tobacco | 0 | 54 |
 
-1. **Exact match** (210 products): the feed's `SupplierUniqueIdentifier`
-   column is a UPC — matched directly against our barcode.
-2. **Fuzzy match** (333 products): normalized product name + size, blocked
-   by shared tokens, scored with `rapidfuzz`, gated so the first
-   significant word (brand) must appear in the candidate and the size must
-   be compatible. Threshold tuned high (≥90/100) to favor no image over a
-   wrong one — a handful of specific known-bad brand collisions (e.g. Bogle
-   vs. a different "Twenty Acres" label sharing the varietal name) were
-   manually excluded after spot-checking.
-3. Images are **hotlinked** from `images.salsify.com` (configured in
-   `next.config.ts` under `images.remotePatterns`) rather than downloaded
-   into the repo, since that's what the feed's CDN is meant for.
+**Source 1 — wine & spirits** (`Copy_of_products.xlsx`, a 14,230-row
+Salsify content export): 210 exact UPC matches + 333 gated fuzzy
+name/size matches, hotlinked from `images.salsify.com`.
+
+**Source 2 — beer, seltzers & RTD** (two Brandfolder asset export CSVs,
+2,036 rows): 86 gated fuzzy matches against the asset name + tags, hotlinked
+from `cdn.bfldr.com`. This filled the biggest gap left by source 1, which
+carries no beer at all. While reviewing these matches we also caught and
+fixed a pre-existing categorization bug: 4 "Smirnoff Smash" SKUs were filed
+under Vodka (an artifact of the original price-list keyword classifier)
+instead of Seltzers & Ready-to-Drink, where the rest of the Smirnoff Ice
+family lives.
+
+Both matching passes use the same approach: normalize text, block candidates
+by shared tokens, score with `rapidfuzz` (token-set + token-sort blend),
+hard-require the brand word to appear in the candidate, and bonus/penalize
+by parsed size compatibility. Threshold tuned high (≥88–90/100) to favor no
+image over a wrong one. A handful of specific bad pairs surfaced by spot
+-checking (wrong-brand collisions, an oversized generic "hero shot" being
+reused across mismatched pack sizes, two suspiciously generic "Bottle-Shot
+-{color}-lg" filenames) were manually excluded rather than tuning the scorer
+to a single anecdote.
 
 `src/components/ProductImage.tsx` renders the real photo via `next/image`
 when `product.image` is set, and `BottleArt` otherwise.
 
-**To add more real photos** (e.g. for beer/seltzers, or to improve fuzzy-match
-coverage), get another supplier feed or your own product photos, add the
-`image` URL to the relevant entries in `products.json`, and the site will
-pick them up automatically — no code changes needed. If you self-host images
-instead of hotlinking, add that hostname to `images.remotePatterns` too.
+**To add more real photos** (e.g. for the remaining beer/seltzer gap, mixers,
+snacks, or to push fuzzy-match coverage higher), get another supplier feed or
+your own product photos, add the `image` URL to the relevant entries in
+`products.json`, and the site will pick them up automatically — no code
+changes needed. If you self-host images or use a new CDN, add that hostname
+to `images.remotePatterns` in `next.config.ts` too.
 
 ## Legal & Compliance Pages
 

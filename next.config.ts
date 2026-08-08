@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         hostname: "images.salsify.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.bfldr.com",
+        pathname: "/**",
+      },
     ],
   },
 };
