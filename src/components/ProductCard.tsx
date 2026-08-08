@@ -4,7 +4,7 @@ import Link from "next/link";
 import type { Product } from "@/lib/types";
 import { formatPrice } from "@/lib/format";
 import { useCart } from "./CartProvider";
-import BottleArt from "./BottleArt";
+import ProductImage from "./ProductImage";
 
 export default function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCart();
@@ -18,10 +18,12 @@ export default function ProductCard({ product }: { product: Product }) {
         href={`/product/${product.slug}`}
         className="relative block aspect-square overflow-hidden bg-surface"
       >
-        <BottleArt
+        <ProductImage
+          image={product.image}
           category={product.categorySlug}
           name={product.name}
           className="h-full w-full transition duration-300 group-hover:scale-105"
+          sizes="(min-width: 1024px) 20vw, 50vw"
         />
         {discountPct > 0 && (
           <span className="absolute left-2 top-2 rounded-full bg-gold px-2 py-1 text-[11px] font-bold text-white">

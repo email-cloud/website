@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useCart } from "@/components/CartProvider";
 import { formatPrice } from "@/lib/format";
-import BottleArt from "@/components/BottleArt";
+import ProductImage from "@/components/ProductImage";
 
 export default function CartPage() {
   const { lines, setQuantity, removeItem, subtotal } = useCart();
@@ -36,8 +36,14 @@ export default function CartPage() {
       <div className="mt-6 divide-y divide-border rounded-xl border border-border bg-white">
         {lines.map((line) => (
           <div key={line.id} className="flex gap-4 p-4">
-            <div className="h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-surface">
-              <BottleArt category={line.categorySlug} name={line.name} className="h-full w-full" />
+            <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-surface">
+              <ProductImage
+                image={line.image}
+                category={line.categorySlug}
+                name={line.name}
+                className="h-full w-full"
+                sizes="80px"
+              />
             </div>
             <div className="flex flex-1 flex-col justify-between">
               <div>

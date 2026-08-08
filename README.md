@@ -69,22 +69,38 @@ delete those rows from `products.json`.
 
 ## Product Images
 
-Every product currently uses **generated placeholder art** — a
-category-colored SVG bottle/can illustration (see
-`src/components/BottleArt.tsx`) rather than real product photography.
+543 of the 2,266 products (about 24%) show **real product photography**,
+sourced from the supplier image feed you provided
+(`Copy_of_products.xlsx`, a 14,230-row Salsify content export covering wine
+and spirits). The remaining products — mostly beer, seltzers/RTD, mixers,
+snacks, and tobacco, which that particular feed doesn't carry — fall back to
+generated category-colored SVG bottle/can art (`src/components/BottleArt.tsx`)
+rather than a broken image or a stock photo of the wrong product.
 
-This was a deliberate choice, not a shortcut: scraping or hotlinking
-thousands of copyrighted brand photos from random websites is a real
-copyright-infringement risk and wouldn't have been reliable at 2,266-SKU
-scale anyway. To add real photos:
+Matching pipeline (see chat history / `src/data/products.json`'s `image`
+field for the result):
 
-1. Get images you're licensed to use — most distributors (Southern
-   Glazer's, RNDC, your local wholesaler) provide free marketing images to
-   licensed retailers, or use photos you take yourself in-store.
-2. Add an `image` field (URL or local path under `/public`) to the relevant
-   product(s) in `products.json`.
-3. Swap `BottleArt` for `next/image` in `ProductCard.tsx` and the product
-   detail page, falling back to `BottleArt` when no image is set.
+1. **Exact match** (210 products): the feed's `SupplierUniqueIdentifier`
+   column is a UPC — matched directly against our barcode.
+2. **Fuzzy match** (333 products): normalized product name + size, blocked
+   by shared tokens, scored with `rapidfuzz`, gated so the first
+   significant word (brand) must appear in the candidate and the size must
+   be compatible. Threshold tuned high (≥90/100) to favor no image over a
+   wrong one — a handful of specific known-bad brand collisions (e.g. Bogle
+   vs. a different "Twenty Acres" label sharing the varietal name) were
+   manually excluded after spot-checking.
+3. Images are **hotlinked** from `images.salsify.com` (configured in
+   `next.config.ts` under `images.remotePatterns`) rather than downloaded
+   into the repo, since that's what the feed's CDN is meant for.
+
+`src/components/ProductImage.tsx` renders the real photo via `next/image`
+when `product.image` is set, and `BottleArt` otherwise.
+
+**To add more real photos** (e.g. for beer/seltzers, or to improve fuzzy-match
+coverage), get another supplier feed or your own product photos, add the
+`image` URL to the relevant entries in `products.json`, and the site will
+pick them up automatically — no code changes needed. If you self-host images
+instead of hotlinking, add that hostname to `images.remotePatterns` too.
 
 ## Legal & Compliance Pages
 

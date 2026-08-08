@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProductBySlug, getRelatedProducts } from "@/lib/products";
 import { formatPrice } from "@/lib/format";
-import BottleArt from "@/components/BottleArt";
+import ProductImage from "@/components/ProductImage";
 import AddToCartBox from "@/components/AddToCartBox";
 import ProductCard from "@/components/ProductCard";
 
@@ -49,10 +49,13 @@ export default async function ProductPage({
 
       <div className="mt-4 grid gap-10 md:grid-cols-2">
         <div className="relative aspect-square overflow-hidden rounded-2xl bg-surface">
-          <BottleArt
+          <ProductImage
+            image={product.image}
             category={product.categorySlug}
             name={product.name}
             className="h-full w-full"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            priority
           />
           {discountPct > 0 && (
             <span className="absolute left-3 top-3 rounded-full bg-gold px-3 py-1 text-xs font-bold text-white">

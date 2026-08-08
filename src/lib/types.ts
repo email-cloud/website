@@ -13,6 +13,7 @@ export interface Product {
   inStock: boolean;
   featured: boolean;
   newArrival: boolean;
+  image: string | null;
 }
 
 export interface Category {
@@ -30,5 +31,6 @@ export interface CartLine {
   size: string;
   price: number;
   categorySlug: string;
+  image: string | null;
   quantity: number;
 }

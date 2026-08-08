@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useCart } from "./CartProvider";
 import { formatPrice } from "@/lib/format";
-import BottleArt from "./BottleArt";
+import ProductImage from "./ProductImage";
 
 export default function CartDrawer() {
   const { lines, isOpen, closeCart, setQuantity, removeItem, subtotal } =
@@ -49,8 +49,14 @@ export default function CartDrawer() {
             <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4">
               {lines.map((line) => (
                 <div key={line.id} className="flex gap-3">
-                  <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-surface">
-                    <BottleArt category={line.categorySlug} name={line.name} className="h-full w-full" />
+                  <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-surface">
+                    <ProductImage
+                      image={line.image}
+                      category={line.categorySlug}
+                      name={line.name}
+                      className="h-full w-full"
+                      sizes="64px"
+                    />
                   </div>
                   <div className="flex-1 min-w-0">
                     <Link
