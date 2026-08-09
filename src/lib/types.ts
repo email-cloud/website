@@ -14,6 +14,7 @@ export interface Product {
   featured: boolean;
   newArrival: boolean;
   image: string | null;
+  descriptionSource?: "supplier";
 }
 
 export interface Category {
